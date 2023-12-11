@@ -29,7 +29,8 @@ export const useGet = <T>(fetchFunction: () => Promise<T>): ReturnProps<T> => {
         };
 
         fetchData();
-    }, [fetchFunction]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
 
     return useMemo(() => state, [state]);
