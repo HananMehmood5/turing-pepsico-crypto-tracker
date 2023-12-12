@@ -10,7 +10,7 @@ interface CurrencyListProps {
 
 const columnHelper = createColumnHelper<CryptoCurrency>();
 
-const CurrencyList: React.FC<CurrencyListProps> = ({ currencies }) => {
+export const CurrencyList: React.FC<CurrencyListProps> = ({ currencies }) => {
   const {
     currency,
     favoriteCurrencyIds,
@@ -55,5 +55,3 @@ const CurrencyList: React.FC<CurrencyListProps> = ({ currencies }) => {
 
   return <Table data={currencies} columns={columns} />;
 };
-
-export default CurrencyList;

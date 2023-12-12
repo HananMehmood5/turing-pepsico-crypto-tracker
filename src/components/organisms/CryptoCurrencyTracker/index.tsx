@@ -1,6 +1,5 @@
-import React, { useContext, useMemo, useState } from "react";
-import CurrencyList from "components/molecules/CurrencyList";
-import { SearchInput } from "components/molecules/SearchInput";
+import React, { useState } from "react";
+import { CurrencyList, SearchInput } from "components/molecules";
 import { CryptoCurrency } from "types";
 import * as S from "./styles";
 import { Button } from "components/atoms";
