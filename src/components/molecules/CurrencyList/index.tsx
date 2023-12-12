@@ -22,10 +22,11 @@ const CurrencyList: React.FC<CurrencyListProps> = ({ currencies }) => {
       columnHelper.accessor("name", { header: "Name" }),
       columnHelper.accessor(`currentPrice.${currency}`, {
         header: "Current Price",
+        cell: ({ getValue }) => getValue().toFixed(3),
       }),
       columnHelper.accessor(`priceChangeLast24Hours.${currency}`, {
         header: "Price Changes Last 24 hours",
-        cell: ({ getValue }) => getValue(),
+        cell: ({ getValue }) => getValue().toFixed(3),
       }),
       columnHelper.display({
         header: "Actions",
@@ -41,7 +42,7 @@ const CurrencyList: React.FC<CurrencyListProps> = ({ currencies }) => {
           };
 
           return (
-            <Button onClick={handleClick}>
+            <Button onClick={handleClick} $width={220}>
               {isFavorite ? "Remove From Favorite" : "Add to Favorite"}
             </Button>
           );

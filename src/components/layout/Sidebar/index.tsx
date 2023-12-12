@@ -34,11 +34,14 @@ const Sidebar: React.FC = () => {
         </S.NavItem>
       </S.NavItems>
       <Divider />
-      <Dropdown value={currency} onChange={handleCurrencyChange}>
-        <option value="usd">USD</option>
-        <option value="btc">BTC</option>
-        <option value="eth">ETH</option>
-      </Dropdown>
+      <S.DropDownWrapper>
+        <S.Label>Current Currency</S.Label>
+        <Dropdown value={currency} onChange={handleCurrencyChange}>
+          <option value="usd">USD</option>
+          <option value="btc">BTC</option>
+          <option value="eth">ETH</option>
+        </Dropdown>
+      </S.DropDownWrapper>
     </S.SidebarContainer>
   );
 };

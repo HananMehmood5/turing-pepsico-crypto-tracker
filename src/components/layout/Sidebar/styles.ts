@@ -7,7 +7,7 @@ export const SidebarContainer = styled.div`
   gap: 32px;
   width: 300px;
   height: 100vh;
-  background-color: ${({theme}) => theme.colors.primary[100]};
+  background-color: ${({ theme }) => theme.colors.primary[100]};
   padding: 32px 24px;
 `;
 
@@ -27,8 +27,17 @@ export const NavItem = styled(Link)`
 
   &:hover {
     text-decoration: underline;
-    color: ${({theme}) => theme.colors.primary[900]};
+    color: ${({ theme }) => theme.colors.primary[900]};
   }
 `;
 
+export const DropDownWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
 
+export const Label = styled.p`
+  font-size: 16px;
+  margin: 0;
+`;

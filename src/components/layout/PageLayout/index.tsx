@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import Sidebar from "components/layout/Sidebar";
-import { Container, Content } from "./styles";
+import * as S from "./styles";
 import { ThemeProvider } from "styled-components";
 import { theme } from "styles/theme";
 import { GlobalStyles } from "styles/GlobalStyles";
@@ -13,10 +13,10 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <Container>
+      <S.Container>
         <Sidebar />
-        <Content>{children}</Content>
-      </Container>
+        <S.Content>{children}</S.Content>
+      </S.Container>
     </ThemeProvider>
   );
 };
