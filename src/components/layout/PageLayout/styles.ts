@@ -13,4 +13,6 @@ export const Content = styled.div`
   padding: 32px 24px;
   display: flex;
   flex-direction: column;
+  max-height: 100vh;
+  overflow-y: auto;
 `;

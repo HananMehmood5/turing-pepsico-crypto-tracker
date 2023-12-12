@@ -1,9 +1,10 @@
 import { useFetchCryptoData } from "hooks";
-import { ReactNode, createContext, useMemo, useState } from "react";
+import { ReactNode, createContext, useEffect, useMemo, useState } from "react";
 import { CryptoCurrency, CurrencyType } from "types";
 import { localStorageHelper } from "utils/localStorage.utils";
 
 type Methods = {
+  refetch: () => Promise<void>;
   setCurrency: (currency: CurrencyType) => void;
   addToFavorite: (id: string) => void;
   removeFromFavorite: (id: string) => void;
@@ -15,6 +16,7 @@ type CryptoTrackerContextType = {
   data: CryptoCurrency[];
   currency: CurrencyType;
   favoriteCurrencies: CryptoCurrency[];
+  favoriteCurrencyIds: string[];
   methods: Methods;
 };
 
@@ -27,7 +29,7 @@ type Props = {
 };
 
 export const CryptoTrackerContextProvider = ({ children }: Props) => {
-  const { loading, data = [], error } = useFetchCryptoData();
+  const { loading, data = [], error, refetch } = useFetchCryptoData();
   const [currency, setCurrency] = useState<CurrencyType>("usd");
   const [favoriteCurrencyIds, setFavoriteCurrencyIds] = useState<string[]>([]);
 
@@ -40,14 +42,36 @@ export const CryptoTrackerContextProvider = ({ children }: Props) => {
   );
 
   const addToFavorite = (id: string) => {
-    setFavoriteCurrencyIds((ids) => [...ids, id]);
+    const updateFavoriteCurrencyIds = [...favoriteCurrencyIds, id];
+    setFavoriteCurrencyIds(updateFavoriteCurrencyIds);
+    localStorageHelper.set(
+      "favoriteCurrencyIds",
+      JSON.stringify(updateFavoriteCurrencyIds)
+    );
   };
 
   const removeFromFavorite = (id: string) => {
-    setFavoriteCurrencyIds((ids) => ids.filter((cid) => cid !== id));
+    const updateFavoriteCurrencyIds = favoriteCurrencyIds.filter(
+      (fid) => fid !== id
+    );
+    setFavoriteCurrencyIds(updateFavoriteCurrencyIds);
+    localStorageHelper.set(
+      "favoriteCurrencyIds",
+      JSON.stringify(updateFavoriteCurrencyIds)
+    );
   };
 
+  useEffect(() => {
+    const storedFavoriteCurrencyIds = localStorageHelper.get(
+      "favoriteCurrencyIds"
+    );
+    if (storedFavoriteCurrencyIds) {
+      setFavoriteCurrencyIds(JSON.parse(storedFavoriteCurrencyIds));
+    }
+  }, []);
+
   const methods = {
+    refetch,
     setCurrency,
     addToFavorite,
     removeFromFavorite,
@@ -60,6 +84,7 @@ export const CryptoTrackerContextProvider = ({ children }: Props) => {
         data,
         error,
         currency,
+        favoriteCurrencyIds,
         favoriteCurrencies,
         methods,
       }}

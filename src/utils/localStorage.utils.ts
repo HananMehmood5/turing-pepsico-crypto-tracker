@@ -1,8 +1,10 @@
 export type LocalStore = {
-  token: string;
+  favoriteCurrencyIds: string;
 };
 
-export const get = <T extends keyof LocalStore>(key: T): LocalStore[T] | null => {
+export const get = <T extends keyof LocalStore>(
+  key: T
+): LocalStore[T] | null => {
   const storedData = localStorage.getItem(key);
   if (storedData) return JSON.parse(storedData);
   return null;
